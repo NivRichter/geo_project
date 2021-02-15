@@ -8,6 +8,7 @@ import {
   ButtonGroup,
 } from "react-bootstrap";
 import Fuse from "fuse.js";
+import MapView from "../components/MapView";
 
 class Buildings extends Component {
   constructor(props) {
@@ -32,59 +33,8 @@ class Buildings extends Component {
   }
 
 
-  componentDidMount() {
-    this.initData();
-    this.getAllSitesName();
-  }
-
-  initData() {
-    // console.log("init data");
-    let url = `https://checkfrontcom.checkfront.com/api/3.0/item`;
-    fetch(url, {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-    })
-      .then((res) => res.json())
-      .then((data) =>
-        this.setState({ picturesDB: data.items }, function () {
-          this.getAllSitesName();
-        })
-      );
-  }
-
-  getAllSitesName() {
-    const sitesData = this.state.picturesDB;
-    let names = [];
-    for (let item_id in sitesData) {
-      names = names.concat([sitesData[item_id]["name"]]);
-    }
-    this.setState({ suggestions: names });
-  }
 
 
-
-  async getData() {
-    //await this.getPicturesData()
-    const selectedDay = this.state.formatDate; //let url = "https://checkfrontcom.checkfront.com/api/3.0/item/cal?item_id=40,14,77&start_date=20201024&end_date=20201025"
-    let url = `https://checkfrontcom.checkfront.com/api/3.0/item/cal?start_date%20=${selectedDay}&end_date=${selectedDay}`;
-    fetch(url, {
-      method: "GET",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState({ jsonData: data }, () =>
-          this.setState(
-            { avilableSites: this.getAvailabeSites(), view: true },
-            this.showAvailableSites
-          )
-        );
-      });
-  }
 
   showAvailableSites() {
     const sites = this.state.avilableSites;
@@ -134,13 +84,11 @@ class Buildings extends Component {
   };
 
   render() {
-    let avilableSites = this.state.avilableSites;
     let sitesTable = { north: [], center: [], Jerusalem: [], south: [] };
     let checkedN = this.state.tlv;
     let checkedJ = this.state.Jerusalem;
     let checkedC = this.state.center;
     let checkedS = this.state.south;
-    let parks_names = [];
     const today = new Date();
     const fortnightAway = new Date(Date.now() + 12096e5);
     let input = this.state.input;
@@ -221,7 +169,13 @@ class Buildings extends Component {
               <Col>
               {this.state.tlv ? 
               <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1fpJk0jT_swhxwqLNMy9DkY6Bc0zzXGWJ" width="640" height="480"></iframe>
-                : <h2> מה נשמע אלונה?</h2>}
+                : 
+               this.state.Jerusalem?
+                <MapView />
+               :
+              
+               
+                <h2> מה נשמע אלונה?</h2>}
               </Col>
           </Row>
         </Container>
