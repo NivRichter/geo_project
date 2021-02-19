@@ -4,7 +4,7 @@ import { Popup } from "react-leaflet";
 
 
 const MarkerPopup = (props) => {
-  const { address,description,id } = props.data;
+  const { address,description,id,comments } = props.data;
   const {updateDB, data } = props;
   const  [showText, setShowText ]= useState(false)
   const  [text, setText ]= useState('')
@@ -20,6 +20,8 @@ const MarkerPopup = (props) => {
     <Popup>
       <div> {description}</div>
       <div>{address} </div>
+      <div>הערות גולשים:</div>
+      <div>{comments}</div>
       <Button onClick={()=> {setShowText(true); }}>
         לחץ להוספת פרטים
       </Button>

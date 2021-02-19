@@ -15,7 +15,7 @@ const MapView = (props) => {
   const [state, setState] = useState({
     currentLocation: { lat: 31.268733, lng: 34.7661248  },
     zoom: 8,
-    data,
+    data:props.db,
     showTLV:false,
     showBS:true,
     showJLM:false,

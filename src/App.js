@@ -1,9 +1,11 @@
 import React, { Component,useState, useEffect } from "react";
 import "./App.css";
 import firebase from "./firestore/firebase";
+import dataDB from "./assets/data.json";
+import {db} from './firestore/firebase';
+
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 import MapView from "./components/MapView";
 import Home from "./components/Home";
 //keyiw9cfT8UR5IwVM
@@ -12,41 +14,50 @@ class App extends Component {
     super(props);
     this.state = {
       value: '',
-      db: firebase.collection("/places/BS/BS-places"),
+      loading:true,
       activeDocRef: undefined,
       activeTab:"welcome",
       jsonURL:"https://api.jsonbin.io/b/602fced5bd6b755d0199c538",
       jsonKey:"$2b$10$2/NjcZqLfdoBPkpWyT71BuJeCNvU8FXl8QLhGcnAJUdAdbLdsjYK."
 
     };
-    const db = firebase.settings({
-      timestampsInSnapshots: true
-    });
+    // const db = firebase.settings({
+    //   timestampsInSnapshots: true
+    // });
   }
   
   componentDidMount() {
-    console.log("mounting APP");
-    let url = this.state.jsonURL
-    fetch(url, {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "secret-key": this.state.jsonKey
+    db.ref('/').on('value', querySnapShot => {
+      let data = querySnapShot.val() ? querySnapShot.val() : {};
+      console.log(`data: ${JSON.stringify(data)}`)
+      this.setState({jsonDB:data, loading:false})
+    });
+
+}
+
+
+    // console.log("mounting APP");
+    // let url = this.state.jsonURL
+    // fetch(url, {
+    //   method: "GET", // *GET, POST, PUT, DELETE, etc.
+    //   mode: "cors", // no-cors, *cors, same-origin
+    //   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    //   credentials: "same-origin", // include, *same-origin, omit
+    //   headers: {
+    //     "secret-key": this.state.jsonKey
           
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        this.setState((prevState) => ({ jsonData: data }));
-        console.log(data)
-      });
-  }
+    //   }
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     this.setState((prevState) => ({ jsonData: data }));
+    //     console.log(data)
+    //   });
+  
 
 
   handleDBUpdate = (id,text) => {
-    const data = this.state.jsonData
+    const data = this.state.jsonDB
     for (var city in data) {
       if (data.hasOwnProperty(city)) {
         for (var place in city){
@@ -75,20 +86,7 @@ class App extends Component {
 
 
   putRequesteInDB = (data) => {
-    let req = new XMLHttpRequest();
-    req.onreadystatechange = () => {
-      if (req.readyState == XMLHttpRequest.DONE) {
-        console.log(req.responseText);
-      }
-    };
-
-    req.open("PUT", "https://api.jsonbin.io/v3/b/602fced5bd6b755d0199c538", true);
-    req.setRequestHeader("Content-Type", "application/json");
-    req.setRequestHeader("X-Master-Key", this.state.jsonKey);
-    req.setRequestHeader("X-Bin-Versioning", true);
-
-    data = {test: 'nice'}
-    req.send(JSON.stringify(data));
+    db.ref('/').set(data);
     this.setState({jsonData:data})
   }
 
@@ -135,7 +133,11 @@ class App extends Component {
       <Router>
         <Switch>
           <Route path="/map">
-            <MapView updateDB = {this.handleDBUpdate} db ={this.state.db}/>;
+            {
+              this.state.loading? 'loading' :            
+              <MapView updateDB = {this.handleDBUpdate} db ={this.state.jsonDB}/>
+
+            }
           </Route>
           <Route path="/">
             <Home />
