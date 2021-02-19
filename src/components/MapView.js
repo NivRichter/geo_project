@@ -13,11 +13,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MapView = (props) => {
   const [state, setState] = useState({
-    currentLocation: { lat: 32.0429994 , lng: 34.7661248  },
+    currentLocation: { lat: 31.268733, lng: 34.7661248  },
     zoom: 8,
     data,
-    showTLV:true,
+    showTLV:false,
     showBS:true,
+    showJLM:false,
+    updateDB:props.updateDB
   });
 
   const location = useLocation();
@@ -41,7 +43,13 @@ const MapView = (props) => {
             name: "new",
             geometry: [currentLocation.lat, currentLocation.lng],
           }),
-        },
+        
+        jlm: state.data.jlm.concat({
+          name: "new",
+          geometry: [currentLocation.lat, currentLocation.lng],
+        })
+      }
+      ,
         currentLocation,
       });
       history.replace({
@@ -77,6 +85,9 @@ const MapView = (props) => {
               <Button onClick =  {()=>setState({...state, showBS: !state.showBS})}>
               לוס-אנג'ס
               </Button>
+              <Button onClick = {()=>setState({...state, showJLM: !state.showJLM})}>
+              ירושלים
+              </Button>
      
           </Col>
         </Row>
@@ -88,7 +99,7 @@ const MapView = (props) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               />
-              <Markers tlv={state.data.tlv} bs = {state.data.bs}  showTLV = {state.showTLV} showBS={state.showBS}/>
+              <Markers updateDB={state.updateDB} db={props.db} tlv={state.data.tlv} bs = {state.data.bs} jlm={state.data.jlm} showTLV = {state.showTLV} showBS={state.showBS} showJLM={state.showJLM}/>
             </Map>
           </Col>
         </Row>

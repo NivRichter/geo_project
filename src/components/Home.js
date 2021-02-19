@@ -1,13 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import {Airtable} from 'airtable';
+
 const Home = () => {
   const [state, setState] = useState({
     longitude: 0,
     latitude: 0,
   });
 
+
+
   useEffect(() => {
+    fetch('https://api.airtable.com/v0/appgOPm5an5ZzNvkk/favorites?api_key=keyiw9cfT8UR5IwVM')
+    .then((resp) => resp.json())
+    .then(data => {
+       this.setState({ movies: data.records });
+    }).catch(err => {
+      // Error :(
+    });
+
     navigator.geolocation.getCurrentPosition(
       function (position) {
         // console.log(position);
