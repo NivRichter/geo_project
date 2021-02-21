@@ -4,34 +4,29 @@ import { VenueLocationIcon } from "./VenueLocationIcon";
 import MarkerPopup from "./MarkerPopup";
 
 const VenueMarkers = (props) => {
-  const { tlv,bs,jlm,showBS,showTLV,showJLM,updateDB } = props;
+  const { marks,showGroupStatus,updateDB } = props;
+  console.log('in vnenue: '   +JSON.stringify(showGroupStatus))
+  const city_sub_sets = Object.keys(marks)
+  //const keys = Object.keys(showGroupStatus)
+  const city_marks = city_sub_sets.reduce( (acc,sub_set_name) => showGroupStatus[sub_set_name]? acc.concat(
+    marks[sub_set_name].map((venue, i) => (
+      <Marker key={i} position={venue.geometry} icon={VenueLocationIcon}>
+        <MarkerPopup updateDB={updateDB} data={venue} />
+      </Marker>
+    )
+  )) 
+  : acc
+  
+   ,[]);
 
 
 
-  const markersTLV = tlv.map((venue, i) => (
-    <Marker key={i} position={venue.geometry} icon={VenueLocationIcon}>
-      <MarkerPopup updateDB={updateDB} data={venue} />
-    </Marker>
-  ));
 
-  const markersbs = bs.map((venue, i) => (
-    <Marker key={i} position={venue.geometry} icon={VenueLocationIcon}>
-      <MarkerPopup updateDB={updateDB} data={venue} />
-    </Marker>
-  ));
-
-  const markersjlm = jlm.map((venue, i) => (
-    <Marker key={i} position={venue.geometry} icon={VenueLocationIcon}>
-      <MarkerPopup updateDB={updateDB} data={venue} />
-    </Marker>
-  ));
 
 
   
   return <>
-            {showTLV? markersTLV : null}
-            {showBS? markersbs: null}
-            {showJLM? markersjlm: null}
+  {city_marks}
   </>;
 };
 
