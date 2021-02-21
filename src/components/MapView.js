@@ -187,20 +187,6 @@ const MapView = (props) => {
             name: "new",
             geometry: [currentLocation.lat, currentLocation.lng],
           }),
-
-
-
-
-          
-          bs: state.data.tlv_all.concat({
-            name: "new",
-            geometry: [currentLocation.lat, currentLocation.lng],
-          }),
-        
-        jlm: state.data.tlv_all.concat({
-          name: "new",
-          geometry: [currentLocation.lat, currentLocation.lng],
-        })
       }
       ,
         currentLocation,

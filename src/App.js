@@ -39,26 +39,47 @@ class App extends Component {
 
   handleDBUpdate = (id,text) => {
     const data = this.state.jsonDB
-    for (var city in data) {
-      if (data.hasOwnProperty(city)) {
-        for (var place in city){
-          if (data[city][place]){
-            if (data[city][place]['id'] === id){
-              var comments = data[city][place]['comments'] 
-              var comments2 = (comments === undefined) ? text : comments + '\n ' + text
-  
-              data[city][place]['comments']  = comments2
-              this.putRequesteInDB(data)
 
-              return
+    for (var city in Object.keys(data)) {
+      const city1 =  Object.keys(data)[city]
+
+        for (var cat in Object.keys(data[city1])) {
+          const cat1 = Object.keys(data[city1])[cat]
+          console.log(cat1)
+
+          for (var place in Object.keys(data[city1][cat1])){
+            const place1 = Object.keys(data[city1][cat1])[place]
+
+
+            if(data[city1]?.[cat1]?.[place1]) {
+              console.log(city1 + cat1  + place1)
+
+              if (data[city1][cat1][place1]['id'] === id){
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+
+                today = dd + '/' + mm + '/' + yyyy;
+
+                var comments = data[city1][cat1][place1]['comments'] 
+                var comments2 = (comments === undefined) ? [today + ' : ' + text] : [comments].concat([today + ' : ' +text])
+    
+                data[city1][cat1][place1]['comments']  = comments2
+                this.putRequesteInDB(data)
+  
+                return
+              }
+  
             }
 
+            
+  
           }
-
         }
 
 
-      }
+
     }
   }
 

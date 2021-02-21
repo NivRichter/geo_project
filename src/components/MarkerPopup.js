@@ -14,6 +14,9 @@ const MarkerPopup = (props) => {
     updateDB(id,text);
   }
 
+  const commentsList = comments !== undefined? comments.map((comment) =><li>{comment}</li> ) : <li> אין הערות</li>
+
+
 
 
   return (
@@ -21,7 +24,7 @@ const MarkerPopup = (props) => {
       <div> {b_type}</div>
       <div>{street} </div>
       <div>הערות גולשים:</div>
-      <div>{comments}</div>
+      <div>{commentsList}</div>
       <Button onClick={()=> {setShowText(true); }}>
         לחץ להוספת פרטים
       </Button>
