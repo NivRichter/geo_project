@@ -20,26 +20,34 @@ const MapView = (props) => {
     showAllTLV:false,
     showBS:true,
     showJLM:false,
-    museum_bs:false,
-    religion_bs:false,
-    rest_bs:false,
-    school_bs:false,
-    tomb_bs:false,
+    showStatusBS:{
+      museum_bs:false,
+      religion_bs:false,
+      rest_bs:false,
+      school_bs:false,
+      tomb_bs:false,
+    },
+  
+    showStatusHAIFA:{
+      garden_haifa:false,
+      hotel_haifa:false,
+      knesset_haifa: false,
+      relig_haifa:false,
+      rest_haifa:false,
+      school_haifa:false,
+      tomb_haifa:false,
+    },
 
-    garden_haifa:false,
-    hotel_haifa:false,
-    knesset_haifa: false,
-    relig_haifa:false,
-    rest_haifa:false,
-    school_haifa:false,
-    tomb_haifa:false,
 
-    bet_kneset_jer:false,
-    garden_jer:false,
-    hotel_jer:false,
-    rest_jer:false,
-    school_jer:false,
-    tomb_jer:false,
+    showStatusJLM: {
+      bet_kneset_jer:false,
+      garden_jer:false,
+      hotel_jer:false,
+      rest_jer:false,
+      school_jer:false,
+      tomb_jer:false,
+    },
+
 
     showStatusTLV: {
       eclectic_tlv:false,
@@ -97,6 +105,92 @@ const MapView = (props) => {
             name: "new",
             geometry: [currentLocation.lat, currentLocation.lng],
           }),
+
+          // JERUSALEM
+
+          bet_kneset_jer: state.data.jer_all.bet_kneset_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          garden_jer: state.data.jer_all.garden_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+          hotel_jer: state.data.jer_all.hotel_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+          rest_jer: state.data.jer_all.rest_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+          school_jer: state.data.jer_all.school_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          tomb_jer: state.data.jer_all.tomb_jer.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+          //HAIFA
+          garden_haifa: state.data.haifa_all.garden_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          hotel_haifa: state.data.haifa_all.hotel_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          knesset_haifa: state.data.haifa_all.knesset_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          relig_haifa: state.data.haifa_all.relig_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          rest_haifa: state.data.haifa_all.rest_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          school_haifa: state.data.haifa_all.school_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          tomb_haifa: state.data.haifa_all.tomb_haifa.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+          //BEER SHEVA
+          museum_bs: state.data.bs_all.museum_bs.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          religion_bs: state.data.bs_all.religion_bs.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          rest_bs: state.data.bs_all.rest_bs.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          school_bs: state.data.bs_all.school_bs.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          tomb_bs: state.data.bs_all.tomb_bs.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+
+
+
+
           
           bs: state.data.tlv_all.concat({
             name: "new",
@@ -154,6 +248,7 @@ const MapView = (props) => {
         <Row>
           <Col>
             <Row>
+              TLV: 
               <Col>
                 <Button 
                                   variant="secondary"onClick = {()=>showAllCity('showStatusTLV')}>
@@ -203,7 +298,7 @@ const MapView = (props) => {
               </Col>
             </Row>
 
-              <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
+              {/* <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
                                   variant="secondary"onClick =  {()=>setState({...state, showBS: !state.showBS})}>
               לוס-אנג'ס
               </ToggleButton>
@@ -211,9 +306,118 @@ const MapView = (props) => {
                                   variant="secondary"onClick = {()=>setState({...state, showJLM: !state.showJLM})}>
               ירושלים
               </ToggleButton>
-     
+      */}
           </Col>
         </Row>
+       {/* JERUSALEM*/ }
+        <Row>
+          <Col>
+          JLM :
+          <Button 
+                                  variant="secondary"onClick = {()=>showAllCity('showStatusJLM')}>
+                הכל -ירושלים
+                </Button> 
+                | 
+          <ToggleButton className="Btn-region" checked ={state.showStatusJLM.bet_kneset_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, bet_kneset_jer: !state.showStatusJLM.bet_kneset_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+
+              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.garden_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, garden_jer: !state.showStatusJLM.garden_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.hotel_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, hotel_jer: !state.showStatusJLM.hotel_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.rest_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, rest_jer: !state.showStatusJLM.rest_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.school_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, school_jer: !state.showStatusJLM.school_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.tomb_jer}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, tomb_jer: !state.showStatusJLM.tomb_jer}})}>
+              bet_kneset_jer
+              </ToggleButton>
+          </Col>
+        </Row>
+
+        {/**HAIFA */}
+        <Row>
+          <Col>
+          HAIFA : 
+          <Button 
+                                  variant="secondary"onClick = {()=>showAllCity('showStatusHAIFA')}>
+                הכל -חיפה
+                </Button> 
+                | 
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.garden_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.garden_haifa}})}>
+              garden_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.hotel_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, hotel_haifa: !state.showStatusHAIFA.hotel_haifa}})}>
+              hotel_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.knesset_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, knesset_haifa: !state.showStatusHAIFA.knesset_haifa}})}>
+              knesset_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.relig_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, relig_haifa: !state.showStatusHAIFA.relig_haifa}})}>
+              relig_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.rest_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, rest_haifa: !state.showStatusHAIFA.rest_haifa}})}>
+              rest_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.school_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.school_haifa}})}>
+              school_haifa
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.tomb_haifa}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.tomb_haifa}})}>
+              tomb_haifa
+          </ToggleButton>
+          
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+          BEER SHEVA :
+          <Button 
+                                  variant="secondary"onClick = {()=>showAllCity('showStatusBS')}>
+                הכל - ב"ש
+            </Button> 
+
+            <ToggleButton className="Btn-region" checked ={state.showStatusBS.museum_bs}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, museum_bs: !state.showStatusBS.museum_bs}})}>
+              museum_bs
+          </ToggleButton>    | 
+          <ToggleButton className="Btn-region" checked ={state.showStatusBS.religion_bs}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, religion_bs: !state.showStatusBS.religion_bs}})}>
+              religion_bs
+          </ToggleButton>    
+          <ToggleButton className="Btn-region" checked ={state.showStatusBS.rest_bs}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, rest_bs: !state.showStatusBS.rest_bs}})}>
+              rest_bs
+          </ToggleButton>    
+          <ToggleButton className="Btn-region" checked ={state.showStatusBS.school_bs}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, school_bs: !state.showStatusBS.school_bs}})}>
+              school_bs
+          </ToggleButton>    
+          <ToggleButton className="Btn-region" checked ={state.showStatusBS.tomb_bs}  type="checkbox"
+                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, tomb_bs: !state.showStatusBS.tomb_bs}})}>
+              tomb_bs
+          </ToggleButton>    
+          </Col>
+        </Row>
+
         <Row>
           <Col>
           
@@ -224,6 +428,11 @@ const MapView = (props) => {
               />
               {console.log('in mapview: ' + JSON.stringify(state.showStatusTLV))}
               <Markers updateDB={state.updateDB} db={props.db} marks={state.data.tlv_all}  showGroupStatus = {state.showStatusTLV} />
+              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.jer_all}  showGroupStatus = {state.showStatusJLM} />
+              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.haifa_all}  showGroupStatus = {state.showStatusHAIFA} />
+              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.bs_all}  showGroupStatus = {state.showStatusBS} />
+
+            
             
             </Map>
           </Col>

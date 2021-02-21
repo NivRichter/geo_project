@@ -4,22 +4,22 @@ import { Popup } from "react-leaflet";
 
 
 const MarkerPopup = (props) => {
-  const { address,description,id,comments } = props.data;
+  const { street,b_type,id,comments } = props.data;
   const {updateDB, data } = props;
   const  [showText, setShowText ]= useState(false)
   const  [text, setText ]= useState('')
 
    function poiUpdae(e) {
      console.log( id + ' '+text)
-    updateDB('100',text);
+    updateDB(id,text);
   }
 
 
 
   return (
     <Popup>
-      <div> {description}</div>
-      <div>{address} </div>
+      <div> {b_type}</div>
+      <div>{street} </div>
       <div>הערות גולשים:</div>
       <div>{comments}</div>
       <Button onClick={()=> {setShowText(true); }}>
