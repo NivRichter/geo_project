@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1cdd039a6b4127dc5c03240e5dcb2d86",
+    "revision": "24d2edb56f3090b877bcd2489d4b1f69",
     "url": "/geo_project/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/geo_project/static/css/2.69ac34f2.chunk.css"
   },
   {
-    "revision": "fce8904f2d674ba4dcba",
+    "revision": "0c988319ce9f83e877a2",
     "url": "/geo_project/static/css/main.a39066ea.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/geo_project/static/js/2.f2983fcf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fce8904f2d674ba4dcba",
-    "url": "/geo_project/static/js/main.faf04df3.chunk.js"
+    "revision": "0c988319ce9f83e877a2",
+    "url": "/geo_project/static/js/main.68fa8cdc.chunk.js"
   },
   {
     "revision": "740182894a80cc445d8e",
