@@ -10,7 +10,6 @@ const MarkerPopup = (props) => {
   const  [text, setText ]= useState('')
 
    function poiUpdae(e) {
-     console.log( id + ' '+text)
     updateDB(id,text);
   }
 
@@ -32,7 +31,7 @@ const MarkerPopup = (props) => {
       {
        showText? 
         <div>
-            <textarea type='text'  onChange={e => {setText(e.target.value); console.log(text)}}>
+            <textarea type='text'  onChange={e => {setText(e.target.value)}}>
             </textarea>
             <Button onClick={poiUpdae}>
               שמור שינויים

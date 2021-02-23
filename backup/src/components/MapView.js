@@ -26,13 +26,11 @@ const MapView = (props) => {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(location);
     if (true) {
       const currentLocation = {
         lat:32.0429994,
         lng: 34.7661248,
       };
-      console.log(state);
       setState({
         ...state,
         data: {

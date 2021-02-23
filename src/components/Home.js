@@ -11,31 +11,6 @@ const Home = () => {
 
 
 
-  useEffect(() => {
-    fetch('https://api.airtable.com/v0/appgOPm5an5ZzNvkk/favorites?api_key=keyiw9cfT8UR5IwVM')
-    .then((resp) => resp.json())
-    .then(data => {
-       this.setState({ movies: data.records });
-    }).catch(err => {
-      // Error :(
-    });
-
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        // console.log(position);
-        setState({
-          longitude: position.coords.longitude,
-          latitude: position.coords.latitude,
-        });
-      },
-      function (error) {
-        console.error("Error Code = " + error.code + " - " + error.message);
-      },
-      {
-        enableHighAccuracy: true,
-      }
-    );
-  }, []);
 
   return (
     <div>

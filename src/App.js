@@ -45,14 +45,12 @@ class App extends Component {
 
         for (var cat in Object.keys(data[city1])) {
           const cat1 = Object.keys(data[city1])[cat]
-          console.log(cat1)
 
           for (var place in Object.keys(data[city1][cat1])){
             const place1 = Object.keys(data[city1][cat1])[place]
 
 
             if(data[city1]?.[cat1]?.[place1]) {
-              console.log(city1 + cat1  + place1)
 
               if (data[city1][cat1][place1]['id'] === id){
                 var today = new Date();
@@ -115,7 +113,6 @@ class App extends Component {
   render() {
      return (
       <div>
-      <button onClick={this.handleClick}>מניש</button>
       <Router>
         <Switch>
           <Route path="/map">

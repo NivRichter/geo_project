@@ -73,7 +73,6 @@ const MapView = (props) => {
         lat: location.state.latitude,
         lng: location.state.longitude,
       };
-      console.log(state);
       setState({
         ...state,
         data: {
@@ -201,13 +200,11 @@ const MapView = (props) => {
   const showAllCity = (city) =>{
 
     let keys = Object.keys(state[city])
-    console.log('KEys ' + keys )
     const new_state = {}
     for (let key in keys){
       new_state[keys[key]] = !state[city][keys[key]]
     }
-    console.log('output ' + new_state )
-    console.log(new_state)
+
     let final_state = {
       ...state
 
@@ -412,7 +409,6 @@ const MapView = (props) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               />
-              {console.log('in mapview: ' + JSON.stringify(state.showStatusTLV))}
               <Markers updateDB={state.updateDB} db={props.db} marks={state.data.tlv_all}  showGroupStatus = {state.showStatusTLV} />
               <Markers updateDB={state.updateDB} db={props.db} marks={state.data.jer_all}  showGroupStatus = {state.showStatusJLM} />
               <Markers updateDB={state.updateDB} db={props.db} marks={state.data.haifa_all}  showGroupStatus = {state.showStatusHAIFA} />
