@@ -27,7 +27,7 @@ const Home = () => {
           state,
         }}
       >
-        See marker
+        לחץ כאן לאתחול מפה
       </Link>
     </div>
   );

@@ -17,7 +17,9 @@ class App extends Component {
       activeDocRef: undefined,
       activeTab:"welcome",
       jsonURL:"https://api.jsonbin.io/b/602fced5bd6b755d0199c538",
-      jsonKey:"$2b$10$2/NjcZqLfdoBPkpWyT71BuJeCNvU8FXl8QLhGcnAJUdAdbLdsjYK."
+      jsonKey:"$2b$10$2/NjcZqLfdoBPkpWyT71BuJeCNvU8FXl8QLhGcnAJUdAdbLdsjYK.",
+      longitude: 0,
+      latitude: 0,
 
     };
     // const db = firebase.settings({
@@ -122,8 +124,12 @@ class App extends Component {
 
             }
           </Route>
-          <Route path="/">
-            <Home />
+          <Route  path="/">
+            {
+                this.state.loading? 'loading' :            
+                <MapView updateDB = {this.handleDBUpdate} db ={this.state.jsonDB}/>
+
+              }
           </Route>
         </Switch>
       </Router>

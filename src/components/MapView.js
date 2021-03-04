@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import data from "../assets/data.json";
 import Markers from "./VenueMarkers";
-import {ToggleButton, ButtonGroup,Button, Container,Row,Col} from 'react-bootstrap';
+import { ToggleButton, ButtonGroup, Button, Container, Row, Col } from 'react-bootstrap';
 import "../App.css";
 
 
@@ -14,57 +14,72 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MapView = (props) => {
   const [state, setState] = useState({
-    currentLocation: { lat: 31.268733, lng: 34.7661248  },
+    currentLocation: { lat: 31.268733, lng: 34.7661248 },
     zoom: 8,
-    data:props.db,
-    showAllTLV:false,
-    showBS:true,
-    showJLM:false,
-    showStatusBS:{
-      museum_bs:false,
-      religion_bs:false,
-      rest_bs:false,
-      school_bs:false,
-      tomb_bs:false,
+    data: props.db,
+    showAllTLV: false,
+    showBS: true,
+    showJLM: false,
+    showStatusBS: {
+      museum_bs: false,
+      religion_bs: false,
+      rest_bs: false,
+      school_bs: false,
+      tomb_bs: false,
     },
-  
-    showStatusHAIFA:{
-      garden_haifa:false,
-      hotel_haifa:false,
+
+    showStatusHAIFA: {
+      garden_haifa: false,
+      hotel_haifa: false,
       knesset_haifa: false,
-      relig_haifa:false,
-      rest_haifa:false,
-      school_haifa:false,
-      tomb_haifa:false,
+      relig_haifa: false,
+      rest_haifa: false,
+      school_haifa: false,
+      tomb_haifa: false,
     },
 
 
     showStatusJLM: {
-      bet_kneset_jer:false,
-      garden_jer:false,
-      hotel_jer:false,
-      rest_jer:false,
-      school_jer:false,
-      tomb_jer:false,
+      bet_kneset_jer: false,
+      garden_jer: false,
+      hotel_jer: false,
+      rest_jer: false,
+      school_jer: false,
+      tomb_jer: false,
     },
 
 
     showStatusTLV: {
-      eclectic_tlv:false,
-      inter_tlv:false,
-      knesset_tlv:false,
-      museum_tlv:false,
-      people_tlv:false,
-      rest_tlv:false,
-      school_tlv:false,
-      special_tlv:false,
+      eclectic_tlv: false,
+      inter_tlv: false,
+      knesset_tlv: false,
+      museum_tlv: false,
+      people_tlv: false,
+      rest_tlv: false,
+      school_tlv: false,
+      special_tlv: false,
     },
 
+    showStatusRG: {
+      garden_rg: false,
+      people_rg: false,
+      hotel_rg: false,
+      school_rg: false,
+      bet_knesset_rg: false,
+      museum_rg: false,
+      rest_rg: false,
+    },
 
-    updateDB:props.updateDB
+    updateDB: props.updateDB
   });
 
-  const location = useLocation();
+  //const location = useLocation();
+  const location = {
+    state: {
+      latitude: 0,
+      longitude: 0
+    }
+  }
   const history = useHistory();
 
   useEffect(() => {
@@ -164,6 +179,36 @@ const MapView = (props) => {
             name: "new",
             geometry: [currentLocation.lat, currentLocation.lng],
           }),
+          //RAMAT GAN
+
+          garden_rg: state.data.rg_all.garden_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          people_rg: state.data.rg_all.people_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          hotel_rg: state.data.rg_all.hotel_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          school_rg: state.data.rg_all.school_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          bet_knesset_rg: state.data.rg_all.bet_knesset_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          museum_rg: state.data.rg_all.museum_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
+          rest_rg: state.data.rg_all.rest_rg.concat({
+            name: "new",
+            geometry: [currentLocation.lat, currentLocation.lng],
+          }),
 
           //BEER SHEVA
           museum_bs: state.data.bs_all.museum_bs.concat({
@@ -186,8 +231,8 @@ const MapView = (props) => {
             name: "new",
             geometry: [currentLocation.lat, currentLocation.lng],
           }),
-      }
-      ,
+        }
+        ,
         currentLocation,
       });
       history.replace({
@@ -197,11 +242,11 @@ const MapView = (props) => {
     }
   }, [location]);
 
-  const showAllCity = (city) =>{
+  const showAllCity = (city) => {
 
     let keys = Object.keys(state[city])
     const new_state = {}
-    for (let key in keys){
+    for (let key in keys) {
       new_state[keys[key]] = !state[city][keys[key]]
     }
 
@@ -215,73 +260,73 @@ const MapView = (props) => {
   }
 
   return (
-      <Container fluid  className="text-light bg-blue py-3">
-          <Row>
-            <Col>
-              <h1>
-                <span> שומרים על הבניינים לשימור</span>
-                <span role="img" aria-label="אוהל" className="mx-1">
-                  
-                </span>
+    <Container fluid className="text-light bg-blue py-3">
+      <Row>
+        <Col>
+          <h1>
+            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> שומרים על הבניינים לשימור</span>
+            <span role="img" aria-label="אוהל" className="mx-1">
 
-              </h1>
-              <h2>ריכוז מאגרי מידע על מבנים לשימור במדינת ישראל</h2>
+            </span>
+
+          </h1>
+          <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ריכוז מאגרי מידע על מבנים לשימור במדינת ישראל</h2>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Row >
+            <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              תל אביב:
+              <Button
+                variant="secondary" onClick={() => showAllCity('showStatusTLV')}>
+                הכל
+                </Button>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.eclectic_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, eclectic_tlv: !state.showStatusTLV.eclectic_tlv } })}>
+                סגנון בנייה אקלקטי
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.inter_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, inter_tlv: !state.showStatusTLV.inter_tlv } })}>
+                סגנון בנייה בינלאומי
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.knesset_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, knesset_tlv: !state.showStatusTLV.knesset_tlv } })}>
+                בתי כנסת
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.museum_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, museum_tlv: !state.showStatusTLV.museum_tlv } })}>
+                מוזיאונים
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.people_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, people_tlv: !state.showStatusTLV.people_tlv } })}>
+                אישים
+                </ToggleButton>
+
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.school_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, school_tlv: !state.showStatusTLV.school_tlv } })}>
+                בתי ספר
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.special_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, special_tlv: !state.showStatusTLV.special_tlv } })}>
+                סגנון בנייה מיוחד
+                </ToggleButton>
+                |
+                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.rest_tlv} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, rest_tlv: !state.showStatusTLV.rest_tlv } })}>
+                שונות
+                </ToggleButton>
             </Col>
           </Row>
-        <Row>
-          <Col>
-            <Row>
-              TLV: 
-              <Col>
-                <Button 
-                                  variant="secondary"onClick = {()=>showAllCity('showStatusTLV')}>
-                הכל - תל אביב
-                </Button> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV , eclectic_tlv: !state.showStatusTLV.eclectic_tlv}})}>
-                אקלקטי
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.inter_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV ,inter_tlv: !state.showStatusTLV.inter_tlv }})}>
-                inter_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.knesset_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: { ...state.showStatusTLV ,knesset_tlv: !state.showStatusTLV.knesset_tlv}})}>
-                knesset_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.museum_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV ,museum_tlv:!state.showStatusTLV.museum_tlv}})}>
-                museum_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.people_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV ,people_tlv: !state.showStatusTLV.people_tlv}})}>
-                people_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.rest_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV:{...state.showStatusTLV ,rest_tlv: !state.showStatusTLV.rest_tlv}})}>
-                rest_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.school_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV ,school_tlv: !state.showStatusTLV.school_tlv}})}>
-                school_tlv
-                </ToggleButton> 
-                | 
-                <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.special_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showStatusTLV: {...state.showStatusTLV ,special_tlv:!state.showStatusTLV.special_tlv}})}>
-                special_tlv
-                </ToggleButton> 
-                | 
-              </Col>
-            </Row>
 
-              {/* <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
+          {/* <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
                                   variant="secondary"onClick =  {()=>setState({...state, showBS: !state.showBS})}>
               לוס-אנג'ס
               </ToggleButton>
@@ -290,136 +335,177 @@ const MapView = (props) => {
               ירושלים
               </ToggleButton>
       */}
-          </Col>
-        </Row>
-       {/* JERUSALEM*/ }
-        <Row>
-          <Col>
-          JLM :
-          <Button 
-                                  variant="secondary"onClick = {()=>showAllCity('showStatusJLM')}>
-                הכל -ירושלים
-                </Button> 
-                | 
-          <ToggleButton className="Btn-region" checked ={state.showStatusJLM.bet_kneset_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, bet_kneset_jer: !state.showStatusJLM.bet_kneset_jer}})}>
-              bet_kneset_jer
+        </Col>
+      </Row>
+      {/* JERUSALEM*/}
+      <Row>
+        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          ירושלים:
+          <Button
+            variant="secondary" onClick={() => showAllCity('showStatusJLM')}>
+            הכל
+                </Button>
+                |
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.bet_kneset_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, bet_kneset_jer: !state.showStatusJLM.bet_kneset_jer } })}>
+            בתי כנסת
               </ToggleButton>
 
-              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.garden_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, garden_jer: !state.showStatusJLM.garden_jer}})}>
-              bet_kneset_jer
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.garden_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, garden_jer: !state.showStatusJLM.garden_jer } })}>
+            גינות
               </ToggleButton>
-              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.hotel_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, hotel_jer: !state.showStatusJLM.hotel_jer}})}>
-              bet_kneset_jer
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.hotel_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, hotel_jer: !state.showStatusJLM.hotel_jer } })}>
+            בתי מלון
               </ToggleButton>
-              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.rest_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, rest_jer: !state.showStatusJLM.rest_jer}})}>
-              bet_kneset_jer
+
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.school_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, school_jer: !state.showStatusJLM.school_jer } })}>
+            בתי ספר
               </ToggleButton>
-              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.school_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, school_jer: !state.showStatusJLM.school_jer}})}>
-              bet_kneset_jer
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.tomb_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, tomb_jer: !state.showStatusJLM.tomb_jer } })}>
+            בתי קברות
               </ToggleButton>
-              <ToggleButton className="Btn-region" checked ={state.showStatusJLM.tomb_jer}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusJLM: {...state.showStatusJLM, tomb_jer: !state.showStatusJLM.tomb_jer}})}>
-              bet_kneset_jer
+          <ToggleButton className="Btn-region" checked={state.showStatusJLM.rest_jer} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, rest_jer: !state.showStatusJLM.rest_jer } })}>
+            שונות
               </ToggleButton>
-          </Col>
-        </Row>
+        </Col>
+      </Row>
 
-        {/**HAIFA */}
-        <Row>
-          <Col>
-          HAIFA : 
-          <Button 
-                                  variant="secondary"onClick = {()=>showAllCity('showStatusHAIFA')}>
-                הכל -חיפה
-                </Button> 
-                | 
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.garden_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.garden_haifa}})}>
-              garden_haifa
+      {/**HAIFA */}
+      <Row>
+        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          חיפה:
+          <Button
+            variant="secondary" onClick={() => showAllCity('showStatusHAIFA')}>
+            הכל
+                </Button>
+                |
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.garden_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.garden_haifa } })}>
+            גינות
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.hotel_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, hotel_haifa: !state.showStatusHAIFA.hotel_haifa}})}>
-              hotel_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.hotel_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, hotel_haifa: !state.showStatusHAIFA.hotel_haifa } })}>
+            בתי מלון
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.knesset_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, knesset_haifa: !state.showStatusHAIFA.knesset_haifa}})}>
-              knesset_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.knesset_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, knesset_haifa: !state.showStatusHAIFA.knesset_haifa } })}>
+            בתי כנסת
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.relig_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, relig_haifa: !state.showStatusHAIFA.relig_haifa}})}>
-              relig_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.relig_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, relig_haifa: !state.showStatusHAIFA.relig_haifa } })}>
+            כנסיות ומסגדים
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.rest_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, rest_haifa: !state.showStatusHAIFA.rest_haifa}})}>
-              rest_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.school_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, school_haifa: !state.showStatusHAIFA.school_haifa } })}>
+            בתי ספר
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.school_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.school_haifa}})}>
-              school_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.tomb_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, tomb_haifa: !state.showStatusHAIFA.tomb_haifa } })}>
+            בתי קברות
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked ={state.showStatusHAIFA.tomb_haifa}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusHAIFA: {...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.tomb_haifa}})}>
-              tomb_haifa
+          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.rest_haifa} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, rest_haifa: !state.showStatusHAIFA.rest_haifa } })}>
+            שונות
           </ToggleButton>
-          
-          </Col>
-        </Row>
 
-        <Row>
-          <Col>
-          BEER SHEVA :
-          <Button 
-                                  variant="secondary"onClick = {()=>showAllCity('showStatusBS')}>
-                הכל - ב"ש
-            </Button> 
+        </Col>
+      </Row>
 
-            <ToggleButton className="Btn-region" checked ={state.showStatusBS.museum_bs}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, museum_bs: !state.showStatusBS.museum_bs}})}>
-              museum_bs
-          </ToggleButton>    | 
-          <ToggleButton className="Btn-region" checked ={state.showStatusBS.religion_bs}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, religion_bs: !state.showStatusBS.religion_bs}})}>
-              religion_bs
-          </ToggleButton>    
-          <ToggleButton className="Btn-region" checked ={state.showStatusBS.rest_bs}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, rest_bs: !state.showStatusBS.rest_bs}})}>
-              rest_bs
-          </ToggleButton>    
-          <ToggleButton className="Btn-region" checked ={state.showStatusBS.school_bs}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, school_bs: !state.showStatusBS.school_bs}})}>
-              school_bs
-          </ToggleButton>    
-          <ToggleButton className="Btn-region" checked ={state.showStatusBS.tomb_bs}  type="checkbox"
-                                  variant="secondary" onClick = {()=>setState({...state, showStatusBS: {...state.showStatusBS, tomb_bs: !state.showStatusBS.tomb_bs}})}>
-              tomb_bs
-          </ToggleButton>    
-          </Col>
-        </Row>
+      <Row>
+        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          באר שבע:
+          <Button
+            variant="secondary" onClick={() => showAllCity('showStatusBS')}>
+            הכל
+            </Button>
 
-        <Row>
-          <Col>
-          
-            <Map center={state.currentLocation} zoom={state.zoom}>
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.tlv_all}  showGroupStatus = {state.showStatusTLV} />
-              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.jer_all}  showGroupStatus = {state.showStatusJLM} />
-              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.haifa_all}  showGroupStatus = {state.showStatusHAIFA} />
-              <Markers updateDB={state.updateDB} db={props.db} marks={state.data.bs_all}  showGroupStatus = {state.showStatusBS} />
+          <ToggleButton className="Btn-region" checked={state.showStatusBS.museum_bs} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, museum_bs: !state.showStatusBS.museum_bs } })}>
+            מוזיאונים
+          </ToggleButton>    |
+          <ToggleButton className="Btn-region" checked={state.showStatusBS.religion_bs} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, religion_bs: !state.showStatusBS.religion_bs } })}>
+            כנסיות ומסגדים
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusBS.school_bs} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, school_bs: !state.showStatusBS.school_bs } })}>
+            בתי ספר
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusBS.tomb_bs} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, tomb_bs: !state.showStatusBS.tomb_bs } })}>
+            בתי קברות
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusBS.rest_bs} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, rest_bs: !state.showStatusBS.rest_bs } })}>
+            שונות
+          </ToggleButton>
+        </Col>
+      </Row>
 
-            
-            
-            </Map>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          רמת גן:
+          <Button
+            variant="secondary" onClick={() => showAllCity('showStatusRG')}>
+            הכל
+            </Button>
+
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.museum_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, museum_rg: !state.showStatusRG.museum_rg } })}>
+            מוזיאונים
+          </ToggleButton>    |
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.garden_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, garden_rg: !state.showStatusRG.garden_rg } })}>
+            גינות
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.people_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, people_rg: !state.showStatusRG.people_rg } })}>
+            אישים
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.hotel_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, hotel_rg: !state.showStatusRG.hotel_rg } })}>
+            בתי מלון
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.school_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, school_rg: !state.showStatusRG.school_rg } })}>
+            בתי ספר
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.bet_knesset_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, bet_knesset_rg: !state.showStatusRG.bet_knesset_rg } })}>
+            בתי כנסת
+          </ToggleButton>
+          <ToggleButton className="Btn-region" checked={state.showStatusRG.rest_rg} type="checkbox"
+            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, rest_rg: !state.showStatusRG.rest_rg } })}>
+            שונות
+          </ToggleButton>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+
+          <Map center={state.currentLocation} zoom={state.zoom}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Markers updateDB={state.updateDB} db={props.db} marks={state.data.tlv_all} showGroupStatus={state.showStatusTLV} />
+            <Markers updateDB={state.updateDB} db={props.db} marks={state.data.jer_all} showGroupStatus={state.showStatusJLM} />
+            <Markers updateDB={state.updateDB} db={props.db} marks={state.data.haifa_all} showGroupStatus={state.showStatusHAIFA} />
+            <Markers updateDB={state.updateDB} db={props.db} marks={state.data.bs_all} showGroupStatus={state.showStatusBS} />
+            <Markers updateDB={state.updateDB} db={props.db} marks={state.data.rg_all} showGroupStatus={state.showStatusRG} />
+
+
+
+          </Map>
+        </Col>
+      </Row>
+    </Container>
 
 
   );
