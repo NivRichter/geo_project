@@ -264,10 +264,8 @@ const MapView = (props) => {
       <Row>
         <Col>
           <h1>
-            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> שומרים על הבניינים לשימור</span>
-            <span role="img" aria-label="אוהל" className="mx-1">
+            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> שומרים על האתרים לשימור</span>
 
-            </span>
 
           </h1>
           <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ריכוז מאגרי מידע על מבנים לשימור במדינת ישראל</h2>
