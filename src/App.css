@@ -1,3 +1,37 @@
+.tog-button {
+  width: 100%;
+  table-layout: fixed;
+}
+.tog-button tr {
+  display: flex;
+}
+.tog-button tr td {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.tog-button {
+  flex: 1;
+}
+
+/* unvisited link */
+a:link {
+  color: white;
+}
+
+/* visited link */
+a:visited {
+  color: white;
+}
+
+/* mouse over link */
+a:hover {
+  color: white;
+  text-decoration: underline;
+
+}
+
+
 .leaflet-container {
   width: 100vw;
   height: 100vh;

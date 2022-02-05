@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import data from "../assets/data.json";
 import Markers from "./VenueMarkers";
-import { ToggleButton, ButtonGroup, Button, Container, Row, Col } from 'react-bootstrap';
+import { ToggleButton, ButtonGroup, Button, Container, Row, Col, Accordion, Card } from 'react-bootstrap';
 import "../App.css";
 
 
@@ -261,90 +261,223 @@ const MapView = (props) => {
 
   return (
     <Container fluid className="text-light bg-blue py-3">
-      <Row>
-        <Col>
-          <h1>
-            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> שומרים על האתרים לשימור</span>
-
+      <Row >
+        <Col style={{ textAlign: "center"}}>
+          <h1>       
+            <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , textAlign: "center"}}> שומרים על האתרים לשימור</span>
+     
 
           </h1>
-          <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>ריכוז מאגרי מידע על מבנים לשימור במדינת ישראל</h2>
+          <h2 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: "center" }}>ריכוז מאגרי מידע על אתרים לשימור במדינת ישראל</h2>
         </Col>
       </Row>
-      <Row>
+        <Accordion >
+    <Accordion.Toggle as={Card.Header} eventKey="1" class="accordionButton">
+    <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <h4>אודות </h4> </span>
+    </Accordion.Toggle>
+    <Accordion.Collapse eventKey="1">
+      <Card.Body>
+        <div  
+        style={{    
+          fontSize: 14,
+    color: "white",
+    textAlign: "center",
+    }}>
+                פרויקט זה הוקם במסגרת קורס "מדעי הרוח הדיגיטליים" בהנחיית ד"ר יעל נצר באוניברסיטת בן גוריון בנגב.
+                <br/>
+        מטרתו היא מיפוי אתרים לשימור בישראל באופן ויזואלי 
+        <br/>
+        אנו מזמינים את הגולשים להוסיף מידע משלהם ולשוטט בין האתרים השונים.
+        <br/>
+         אנו מקווים שהפרויקט ממחיש בצורה נגישה ומעניינת את פריסת האתרים לשימור בארץ.
+         <br/>
+         <div dir="ltr">
+
+         <a href="https://twitter.com/Niv_Ri">@NivRi</a> , 
+         <a href="https://twitter.com/AlonaKornblau">@AlonaKornblau</a>
+
+         </div>
+
+
+        </div>
+        
+
+      </Card.Body>
+    </Accordion.Collapse>
+
+    <Accordion.Toggle as={Card.Header} eventKey="2" >
+    <span style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}> <h4>תפריט </h4></span>
+    </Accordion.Toggle>
+    <Accordion.Collapse eventKey="2">
+      <Row style ={{height:"100%"}}>
         <Col>
-          <Row >
-            <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              תל אביב:
-              <Button
-                variant="secondary" onClick={() => showAllCity('showStatusTLV')}>
-                הכל
-                </Button>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.eclectic_tlv} type="checkbox"
+ 
+        
+      <Row  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding:"0px" }}>
+        
+      <Col xs ={2} md = {2} lg = {2}>
+           חיפה:
+            </Col>
+        <Col  xs={10} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding:"0px"    }}>
+          <ButtonGroup size="sm" className="mb-2">
+              <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.garden_haifa} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.garden_haifa } })}>
+                גינות
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.hotel_haifa} type="checkbox"
+                    variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, hotel_haifa: !state.showStatusHAIFA.hotel_haifa } })}>
+                    בתי מלון
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.knesset_haifa} type="checkbox"
+                    variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, knesset_haifa: !state.showStatusHAIFA.knesset_haifa } })}>
+                    בתי כנסת
+                </ToggleButton>
+                <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.relig_haifa} type="checkbox"
+                    variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, relig_haifa: !state.showStatusHAIFA.relig_haifa } })}>
+                    כנסיות ומסגדים
+                  </ToggleButton>
+            </ButtonGroup>
+        </Col>
+        <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding:"0px"  }}>
+          <ButtonGroup size="sm" className="mb-2">
+
+                  <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.school_haifa} type="checkbox"
+                    variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, school_haifa: !state.showStatusHAIFA.school_haifa } })}>
+                    בתי ספר
+                  </ToggleButton>
+                  <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.tomb_haifa} type="checkbox"
+                    variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, tomb_haifa: !state.showStatusHAIFA.tomb_haifa } })}>
+                    בתי קברות
+                  </ToggleButton>
+                  <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.rest_haifa} type="checkbox"
+                      variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, rest_haifa: !state.showStatusHAIFA.rest_haifa } })}>
+                      שונות
+              </ToggleButton>
+            </ButtonGroup>
+        </Col>
+
+      </Row>
+    
+    {/* start */}
+
+      <Row  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        
+        <Col xs ={2} md = {2} lg = {2}>
+             תל אביב:
+              </Col>
+          <Col  xs={10} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+            <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.eclectic_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, eclectic_tlv: !state.showStatusTLV.eclectic_tlv } })}>
                 סגנון בנייה אקלקטי
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.inter_tlv} type="checkbox"
+                
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.inter_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, inter_tlv: !state.showStatusTLV.inter_tlv } })}>
                 סגנון בנייה בינלאומי
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.knesset_tlv} type="checkbox"
+                
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.knesset_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, knesset_tlv: !state.showStatusTLV.knesset_tlv } })}>
                 בתי כנסת
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.museum_tlv} type="checkbox"
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.museum_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, museum_tlv: !state.showStatusTLV.museum_tlv } })}>
                 מוזיאונים
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.people_tlv} type="checkbox"
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
+                
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.people_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, people_tlv: !state.showStatusTLV.people_tlv } })}>
                 אישים
                 </ToggleButton>
 
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.school_tlv} type="checkbox"
+                
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.school_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, school_tlv: !state.showStatusTLV.school_tlv } })}>
                 בתי ספר
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.special_tlv} type="checkbox"
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.special_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, special_tlv: !state.showStatusTLV.special_tlv } })}>
                 סגנון בנייה מיוחד
                 </ToggleButton>
-                |
-                <ToggleButton value="1" className="Btn-region" checked={state.showStatusTLV.rest_tlv} type="checkbox"
+                
+                <ToggleButton value="1" className="Btn-region tog-button" checked={state.showStatusTLV.rest_tlv} type="checkbox"
                 variant="secondary" onClick={() => setState({ ...state, showStatusTLV: { ...state.showStatusTLV, rest_tlv: !state.showStatusTLV.rest_tlv } })}>
                 שונות
                 </ToggleButton>
-            </Col>
-          </Row>
+              </ButtonGroup>
+          </Col>
 
-          {/* <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
-                                  variant="secondary"onClick =  {()=>setState({...state, showBS: !state.showBS})}>
-              לוס-אנג'ס
-              </ToggleButton>
-              <ToggleButton value="1" className="Btn-region" checked ={state.showStatusTLV.eclectic_tlv}  type="checkbox"
-                                  variant="secondary"onClick = {()=>setState({...state, showJLM: !state.showJLM})}>
-              ירושלים
-              </ToggleButton>
-      */}
-        </Col>
       </Row>
-      {/* JERUSALEM*/}
-      <Row>
-        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          ירושלים:
-          <Button
-            variant="secondary" onClick={() => showAllCity('showStatusJLM')}>
-            הכל
-                </Button>
-                |
-          <ToggleButton className="Btn-region" checked={state.showStatusJLM.bet_kneset_jer} type="checkbox"
+  {/* end */}
+
+      {/* start */}
+
+      <Row  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        
+        <Col xs ={2} md = {2} lg = {2}>
+             רמת גן:
+              </Col>
+          <Col  xs={10} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+            <ToggleButton className="Btn-region" checked={state.showStatusRG.museum_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, museum_rg: !state.showStatusRG.museum_rg } })}>
+                מוזיאונים
+              </ToggleButton>  
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.garden_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, garden_rg: !state.showStatusRG.garden_rg } })}>
+                גינות
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.people_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, people_rg: !state.showStatusRG.people_rg } })}>
+                אישים
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.hotel_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, hotel_rg: !state.showStatusRG.hotel_rg } })}>
+                בתי מלון
+              </ToggleButton>
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.school_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, school_rg: !state.showStatusRG.school_rg } })}>
+                בתי ספר
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.bet_knesset_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, bet_knesset_rg: !state.showStatusRG.bet_knesset_rg } })}>
+                בתי כנסת
+              </ToggleButton>
+              <ToggleButton className="Btn-region" checked={state.showStatusRG.rest_rg} type="checkbox"
+                variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, rest_rg: !state.showStatusRG.rest_rg } })}>
+                שונות
+              </ToggleButton>
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
+              </ButtonGroup>
+          </Col>
+      </Row>
+  {/* end */}
+
+      {/* start */}
+
+      <Row  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        
+        <Col xs ={2} md = {2} lg = {2}>
+             ירושלים:
+              </Col>
+          <Col  xs={10} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+            <ToggleButton className="Btn-region" checked={state.showStatusJLM.bet_kneset_jer} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, bet_kneset_jer: !state.showStatusJLM.bet_kneset_jer } })}>
             בתי כנסת
               </ToggleButton>
@@ -357,11 +490,15 @@ const MapView = (props) => {
             variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, hotel_jer: !state.showStatusJLM.hotel_jer } })}>
             בתי מלון
               </ToggleButton>
-
-          <ToggleButton className="Btn-region" checked={state.showStatusJLM.school_jer} type="checkbox"
+              <ToggleButton className="Btn-region" checked={state.showStatusJLM.school_jer} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, school_jer: !state.showStatusJLM.school_jer } })}>
             בתי ספר
               </ToggleButton>
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
           <ToggleButton className="Btn-region" checked={state.showStatusJLM.tomb_jer} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, tomb_jer: !state.showStatusJLM.tomb_jer } })}>
             בתי קברות
@@ -370,62 +507,30 @@ const MapView = (props) => {
             variant="secondary" onClick={() => setState({ ...state, showStatusJLM: { ...state.showStatusJLM, rest_jer: !state.showStatusJLM.rest_jer } })}>
             שונות
               </ToggleButton>
-        </Col>
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
+              </ButtonGroup>
+          </Col>
       </Row>
+  {/* end */}
 
-      {/**HAIFA */}
-      <Row>
-        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          חיפה:
-          <Button
-            variant="secondary" onClick={() => showAllCity('showStatusHAIFA')}>
-            הכל
-                </Button>
-                |
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.garden_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, garden_haifa: !state.showStatusHAIFA.garden_haifa } })}>
-            גינות
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.hotel_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, hotel_haifa: !state.showStatusHAIFA.hotel_haifa } })}>
-            בתי מלון
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.knesset_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, knesset_haifa: !state.showStatusHAIFA.knesset_haifa } })}>
-            בתי כנסת
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.relig_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, relig_haifa: !state.showStatusHAIFA.relig_haifa } })}>
-            כנסיות ומסגדים
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.school_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, school_haifa: !state.showStatusHAIFA.school_haifa } })}>
-            בתי ספר
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.tomb_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, tomb_haifa: !state.showStatusHAIFA.tomb_haifa } })}>
-            בתי קברות
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusHAIFA.rest_haifa} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusHAIFA: { ...state.showStatusHAIFA, rest_haifa: !state.showStatusHAIFA.rest_haifa } })}>
-            שונות
-          </ToggleButton>
+      {/* start */}
 
-        </Col>
-      </Row>
+      <Row  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        
+        <Col xs ={2} md = {2} lg = {2}>
+            באר שבע:
+              </Col>
+          <Col  xs={10} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
 
-      <Row>
-        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          באר שבע:
-          <Button
-            variant="secondary" onClick={() => showAllCity('showStatusBS')}>
-            הכל
-            </Button>
-
-          <ToggleButton className="Btn-region" checked={state.showStatusBS.museum_bs} type="checkbox"
+            <ToggleButton className="Btn-region" checked={state.showStatusBS.museum_bs} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, museum_bs: !state.showStatusBS.museum_bs } })}>
             מוזיאונים
-          </ToggleButton>    |
+          </ToggleButton>  
           <ToggleButton className="Btn-region" checked={state.showStatusBS.religion_bs} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, religion_bs: !state.showStatusBS.religion_bs } })}>
             כנסיות ומסגדים
@@ -434,7 +539,12 @@ const MapView = (props) => {
             variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, school_bs: !state.showStatusBS.school_bs } })}>
             בתי ספר
           </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusBS.tomb_bs} type="checkbox"
+
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+            <ToggleButton className="Btn-region" checked={state.showStatusBS.tomb_bs} type="checkbox"
             variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, tomb_bs: !state.showStatusBS.tomb_bs } })}>
             בתי קברות
           </ToggleButton>
@@ -442,52 +552,27 @@ const MapView = (props) => {
             variant="secondary" onClick={() => setState({ ...state, showStatusBS: { ...state.showStatusBS, rest_bs: !state.showStatusBS.rest_bs } })}>
             שונות
           </ToggleButton>
-        </Col>
+              </ButtonGroup>
+          </Col>
+          <Col  xs={12} md = {4} lg = {4} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <ButtonGroup size="sm" className="mb-2">
+
+              </ButtonGroup>
+          </Col>
       </Row>
+  {/* end */}
+
+      </Col>
+    </Row>
+
+    </Accordion.Collapse>
+  </Accordion>
+
 
       <Row>
-        <Col style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          רמת גן:
-          <Button
-            variant="secondary" onClick={() => showAllCity('showStatusRG')}>
-            הכל
-            </Button>
+        <Col style ={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
 
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.museum_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, museum_rg: !state.showStatusRG.museum_rg } })}>
-            מוזיאונים
-          </ToggleButton>    |
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.garden_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, garden_rg: !state.showStatusRG.garden_rg } })}>
-            גינות
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.people_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, people_rg: !state.showStatusRG.people_rg } })}>
-            אישים
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.hotel_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, hotel_rg: !state.showStatusRG.hotel_rg } })}>
-            בתי מלון
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.school_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, school_rg: !state.showStatusRG.school_rg } })}>
-            בתי ספר
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.bet_knesset_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, bet_knesset_rg: !state.showStatusRG.bet_knesset_rg } })}>
-            בתי כנסת
-          </ToggleButton>
-          <ToggleButton className="Btn-region" checked={state.showStatusRG.rest_rg} type="checkbox"
-            variant="secondary" onClick={() => setState({ ...state, showStatusRG: { ...state.showStatusRG, rest_rg: !state.showStatusRG.rest_rg } })}>
-            שונות
-          </ToggleButton>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-
-          <Map center={state.currentLocation} zoom={state.zoom}>
+          <Map center={state.currentLocation} zoom={state.zoom} style ={{display: 'flex', justifyContent: 'center', alignItems: 'center' , width:"100%"}}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -503,8 +588,17 @@ const MapView = (props) => {
           </Map>
         </Col>
       </Row>
-    </Container>
 
+      <Row>
+        <Col>
+        <h9 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>כל הזכויות שמורות לניב ריכטר ואלונה קורנבלאו ©</h9>
+
+        </Col>
+      </Row>
+
+      
+</Container>
+    
 
   );
 };

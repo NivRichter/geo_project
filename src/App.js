@@ -8,6 +8,7 @@ import {db} from './firestore/firebase';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import MapView from "./components/MapView";
 import Home from "./components/Home";
+import { Container } from "react-bootstrap";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -114,7 +115,7 @@ class App extends Component {
 
   render() {
      return (
-      <div>
+      <Container fluid dir="rtl">
       <Router>
         <Switch>
           <Route path="/map">
@@ -133,7 +134,7 @@ class App extends Component {
           </Route>
         </Switch>
       </Router>
-      </div>
+      </Container>
 
     );
   }
